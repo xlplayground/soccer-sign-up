@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BHES/Brit-Am Soccer Sign-up Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const data = new FormData(form);
+            const weekdays = Array.from(document.querySelectorAll('input[name="weekdays"]:checked')).map(el => el.value);
+            data.append('weekdays', weekdays.join(', '));
+            const action = form.action;
+            fetch(action, {
+                method: 'POST',
+                body: data
+            })
+            .then(response => response.json())
+            .then(result => {
+                if(result.result === 'success') {
+                    alert('Form submitted successfully!');
+                    form.reset();
+                    weekdayChoices.removeActiveItems();
+                } else {
+                    alert('There was an error. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error. Please try again.');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const weekdayChoices = new Choices('#weekdays', {
+                removeItemButton: true,
+                maxItemCount: 7,
+                placeholder: true,
+                placeholderValue: 'Select preferred weekdays'
+            });
+        });
+    </script>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-6 text-center">BHES/Brit-Am Soccer Sign-up Form</h1>
+        <form id="soccer-signup" onsubmit="handleSubmit(event)" action="https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec">
+            <div class="mb-4">
+                <label for="parentName" class="block text-gray-700 font-bold mb-2">Parent's Name</label>
+                <input type="text" id="parentName" name="parentName" required class="w-full px-3 py-2 border rounded-lg">
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
+                <input type="email" id="email" name="email" required class="w-full px-3 py-2 border rounded-lg">
+            </div>
+            <div class="mb-4">
+                <label for="phone" class="block text-gray-700 font-bold mb-2">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required class="w-full px-3 py-2 border rounded-lg">
+            </div>
+            <div class="mb-4">
+                <label for="childName" class="block text-gray-700 font-bold mb-2">Child's Name</label>
+                <input type="text" id="childName" name="childName" required class="w-full px-3 py-2 border rounded-lg">
+            </div>
+            <div class="mb-4">
+                <label for="childAge" class="block text-gray-700 font-bold mb-2">Child's Age</label>
+                <input type="number" id="childAge" name="childAge" required min="4" max="18" class="w-full px-3 py-2 border rounded-lg">
+            </div>
+            <div class="mb-4">
+                <label for="afterSoccerPlan" class="block text-gray-700 font-bold mb-2">After Soccer Plans</label>
+                <select id="afterSoccerPlan" name="afterSoccerPlan" required class="w-full px-3 py-2 border rounded-lg">
+                    <option value="">Select an option</option>
+                    <option value="aftercare">Aftercare</option>
+                    <option value="pickup">Parent to pick up</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="whatsAppConsent" class="block text-gray-700 font-bold mb-2">Add to WhatsApp chat group?</label>
+                <select id="whatsAppConsent" name="whatsAppConsent" required class="w-full px-3 py-2 border rounded-lg">
+                    <option value="">Select an option</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="weekdays" class="block text-gray-700 font-bold mb-2">Preferred Weekdays</label>
+                <select id="weekdays" name="weekdays" multiple>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                </select>
+            </div>
+            <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
