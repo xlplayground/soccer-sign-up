@@ -48,7 +48,7 @@
 <body class="bg-gray-100 flex justify-center items-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h1 class="text-2xl font-bold mb-6 text-center">BHES/Brit-Am Soccer Sign-up Form</h1>
-        <form id="soccer-signup" onsubmit="handleSubmit(event)" action="https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec">
+        <form id="soccer-signup" onsubmit="handleSubmit(event)" action="https://script.google.com/macros/s/AKfycbww5nlvb93fHohfnwrgtmazJN-rI8h6YMWRvpDv7E4heFvm0eXbJRXWCLXX_rG_UlDmhA/exec">
             <div class="mb-4">
                 <label for="parentName" class="block text-gray-700 font-bold mb-2">Parent's Name</label>
                 <input type="text" id="parentName" name="parentName" required class="w-full px-3 py-2 border rounded-lg">
@@ -91,6 +91,15 @@
                     <option value="Friday">Friday</option>
                     <option value="Saturday">Saturday</option>
                     <option value="Sunday">Sunday</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="walkingHelp" class="block text-gray-700 font-bold mb-2">Would you be willing to occasionally help walk kids to the soccer field after school? (You won't be committed to doing it every time)</label>
+                <select id="walkingHelp" name="walkingHelp" required class="w-full px-3 py-2 border rounded-lg">
+                    <option value="">Select an option</option>
+                    <option value="yes">Yes, I can help occasionally</option>
+                    <option value="maybe">Maybe, but I need more information</option>
+                    <option value="no">No, I can't assist with walking</option>
                 </select>
             </div>
             <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600">Submit</button>
